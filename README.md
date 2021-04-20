@@ -43,7 +43,7 @@ The performance of my algorithm is better than my expectation. If the dog detect
 
 ## Licensing, Authors, Acknowledgements<a name="licensing"></a>
 
-Thanks to Data Scientist Nanodegree - Udacity and its templates to follow from Dog Breed Workspace
+Thanks to Data Scientist Nanodegree - Udacity and its templates to follow from **Dog Breed Workspace**
 
 Thanks to [Arif Ul Islam](https://arifulislam-ron.medium.com/flask-web-application-to-classify-image-using-vgg16-d9c46f29c4cd) and [stack overflow](https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page/46794505) help me build up my web app.
 
