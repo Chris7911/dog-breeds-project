@@ -32,10 +32,10 @@ Deep learning helps me solve lots of problems in my work, but putting a deep lea
 
 Please follow steps below to open the web-app:
 
-#### Step1: #### 
+#### Step 1: #### 
 Be sure to clone my project (original project doesn't include /app, and dog_names.txt) and install all packages in [requirements.txt](https://github.com/Chris7911/dog-breeds-project/blob/main/requirements/requirements.txt), especially **flask**.
 
-#### Step2: #### 
+#### Step 2: #### 
 Go to /app and run the following command:
 ```bash
 $ export FLASK_APP=run.py
@@ -43,12 +43,12 @@ $ flask run
  *Running on http://127.0.0.1:5000/
 ```
 
-#### Step3: ####
+#### Step 3: ####
 Open a browser and type in http://127.0.0.1:5000/. On the front page of the website, hit the button **Browse** to upload an image and **Submit** it to see the result.
 
 <img src='images/browser.png' />
 
-#### Step4: ####
+#### Step 4: ####
 On the same page, you can see the result from the buttons below:
 
 <img src='images/prediction.png' />
