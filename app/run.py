@@ -27,7 +27,7 @@ with open("../dog_names.txt", "r") as f:
     dog_names = f.read().splitlines()
 
 ## Face detector
-face_cascade = cv2.CascadeClassifier('..\haarcascades\haarcascade_frontalface_alt.xml')
+face_cascade = cv2.CascadeClassifier('../haarcascades/haarcascade_frontalface_alt.xml')
 
 def face_detector(img_path):
     img = cv2.imread(img_path)

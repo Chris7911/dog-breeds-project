@@ -1,8 +1,6 @@
 opencv-python
 keras
-h5py
 matplotlib
-numpy
 scipy
 tqdm
 scikit-learn
