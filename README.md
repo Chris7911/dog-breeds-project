@@ -3,7 +3,7 @@
 
 1. [Installation](#installation)
 2. [Project Motivation](#motivation)
-3. [File Descriptions](#files)
+3. [File Descriptions](#descriptions)
 4. [Web-Application](#web_app)
 5. [Results](#results)
 6. [Licensing, Authors, and Acknowledgements](#licensing)
@@ -19,7 +19,7 @@ $ pip install -r requirements.txt
 
 Deep learning helps me solve lots of problems in my work, but putting a deep learning application on a web app is something I've never done before. So, that's why choosing this dog breed classifier as Data Scientist Nanodegree's capstone project to further my skill! This project might help host my other deep learning applications on a website for more people to use in the near future.
 
-## File Descriptions <a name="files"></a>
+## File Descriptions <a name="descriptions"></a>
 
 1. [dog_app.ipynb](https://github.com/Chris7911/dog-breeds-project/blob/main/dog_app.ipynb) walks you through every single step to finish this project
 2. [extract_bottleneck_features.py](https://github.com/Chris7911/dog-breeds-project/blob/main/extract_bottleneck_features.py) bottleneck features of pre-trained models with according preprocess
@@ -32,10 +32,10 @@ Deep learning helps me solve lots of problems in my work, but putting a deep lea
 
 Please follow steps below to open the web-app:
 
-#### Step1 #### 
+#### Step1: #### 
 Be sure to clone my project (original project doesn't include /app, and dog_names.txt) and install all packages in [requirements.txt](https://github.com/Chris7911/dog-breeds-project/blob/main/requirements/requirements.txt), especially **flask**.
 
-#### Step2 #### 
+#### Step2: #### 
 Go to /app and run the following command:
 ```bash
 $ export FLASK_APP=run.py
@@ -43,12 +43,12 @@ $ flask run
  *Running on http://127.0.0.1:5000/
 ```
 
-#### Step3 ####
+#### Step3: ####
 Open a browser and type in http://127.0.0.1:5000/. On the front page of the website, hit the button **Browse** to upload an image and **Submit** it to see the result.
 
 <img src='images/browser.png' />
 
-#### Ste4 ####
+#### Step4: ####
 On the same page, you can see the result from the buttons below:
 
 <img src='images/prediction.png' />
