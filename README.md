@@ -4,8 +4,9 @@
 1. [Installation](#installation)
 2. [Project Motivation](#motivation)
 3. [File Descriptions](#files)
-4. [Results](#results)
-5. [Licensing, Authors, and Acknowledgements](#licensing)
+4. [Web-Application](#web_app)
+5. [Results](#results)
+6. [Licensing, Authors, and Acknowledgements](#licensing)
 
 ## Installation <a name="installation"></a>
 
@@ -14,7 +15,7 @@ Python3.x with other packages in [requirements.txt](https://github.com/Chris7911
 $ pip install -r requirements.txt
 ```
 
-## Project Motivation<a name="motivation"></a>
+## Project Motivation <a name="motivation"></a>
 
 Deep learning helps me solve lots of problems in my work, but putting a deep learning application on a web app is something I've never done before. So, that's why choosing this dog breed classifier as Data Scientist Nanodegree's capstone project to further my skill! This project might help host my other deep learning applications on a website for more people to use in the near future.
 
@@ -27,8 +28,33 @@ Deep learning helps me solve lots of problems in my work, but putting a deep lea
 5. [haarcascades](https://github.com/Chris7911/dog-breeds-project/tree/main/haarcascades) [Haar feature-based cascade classifiers](http://docs.opencv.org/trunk/d7/d8b/tutorial_py_face_detection.html) to detect human faces in images
 6. [saved_models](https://github.com/Chris7911/dog-breeds-project/tree/main/saved_models) includes Xception model for breeds prediction on the web app
 
+## Web-Application <a name="web_app"></a>
 
-## Results<a name="results"></a>
+Please follow steps below to open the web-app:
+
+#### Step1 #### 
+Be sure to clone my project (original project doesn't include /app, and dog_names.txt) and install all packages in [requirements.txt](https://github.com/Chris7911/dog-breeds-project/blob/main/requirements/requirements.txt), especially **flask**.
+
+#### Step2 #### 
+Go to /app and run the following command:
+```bash
+$ export FLASK_APP=run.py
+$ flask run
+ *Running on http://127.0.0.1:5000/
+```
+
+#### Step3 ####
+Open a browser and type in http://127.0.0.1:5000/. On the front page of the website, hit the button **Browse** to upload an image and **Submit** it to see the result.
+
+<img src='images/browser.png' />
+
+#### Ste4 ####
+On the same page, you can see the result from the buttons below:
+
+<img src='images/prediction.png' />
+
+
+## Results <a name="results"></a>
 
 The performance of my algorithm is better than my expectation. If the dog detector can recognize the creature in the photo as a dog, dog breed classifier will be able to predict the breed of that dog accurately. However, some corner cases made my algorithm fail to give the right answer. For example, the dog detector cannot recognize the dog wearing red and controlling the steering wheel like a human. Also, the human detector predicts a humanoid robot as a human. In order to fix the corner cases above, there are some ideas to improve my algorithm:
 
@@ -41,9 +67,9 @@ The performance of my algorithm is better than my expectation. If the dog detect
 4. (Optional) Collect more data related to the three classes to generalize the models; Find a better model architecture; Spend more time to fine-tune hyperparameters; Use other metrics like precision or recall to judge our algorithm.
 
 
-## Licensing, Authors, Acknowledgements<a name="licensing"></a>
+## Licensing, Authors, Acknowledgements <a name="licensing"></a>
 
 Thanks to Data Scientist Nanodegree - Udacity and its templates to follow from **Dog Breed Workspace**
 
-Thanks to [Arif Ul Islam](https://arifulislam-ron.medium.com/flask-web-application-to-classify-image-using-vgg16-d9c46f29c4cd) and [stack overflow](https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page/46794505) help me build up my web app.
+Thanks to [Arif Ul Islam](https://arifulislam-ron.medium.com/flask-web-application-to-classify-image-using-vgg16-d9c46f29c4cd) and [StackOverflow](https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page/46794505) help me build up my web app.
 
