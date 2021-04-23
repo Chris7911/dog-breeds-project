@@ -4,9 +4,10 @@
 1. [Installation](#installation)
 2. [Project Motivation](#motivation)
 3. [File Descriptions](#descriptions)
-4. [Web-Application](#web_app)
-5. [Results](#results)
-6. [Licensing, Authors, and Acknowledgements](#licensing)
+4. [Project Analysis](#analysis)
+5. [Web-Application](#web_app)
+6. [Results](#results)
+7. [Licensing, Authors, and Acknowledgements](#licensing)
 
 ## Installation <a name="installation"></a>
 
@@ -27,6 +28,53 @@ Deep learning helps me solve lots of problems in my work, but putting a deep lea
 4. [app](https://github.com/Chris7911/dog-breeds-project/tree/main/app) includes all we need to build up a web app
 5. [haarcascades](https://github.com/Chris7911/dog-breeds-project/tree/main/haarcascades) [Haar feature-based cascade classifiers](http://docs.opencv.org/trunk/d7/d8b/tutorial_py_face_detection.html) to detect human faces in images
 6. [saved_models](https://github.com/Chris7911/dog-breeds-project/tree/main/saved_models) includes Xception model for breeds prediction on the web app
+
+## Project Analysis <a name="analysis"></a>
+
+### Problem Introduction
+This project is aimed to develop a dog breed classifier. When an user provides an image of a dog as an input, the classifier needs to predicit its breed as an output. Moreover, if there is a human in the photo, the classifier should be able to give the most similar appearance of breed for that person. Therefore, we can break the project down into three problems.
+Our algorithm has the ability to ..
+1. Identify a human in an image and give it a breed
+2. Recognize a dog in an image and give it a breed
+3. Give an error when the creature in the photo is neither a human nor a dog
+
+### Strategy to Solve the Problem
+With real-world problem solving, we can combine more than one model together to achieve our goal.
+1. To identify humans by using OpenCV's Cascade classifier to detect human faces in an image
+2. To recognize dogs by using pre-trained model ResNet-50 from Keras
+3. To predict a breed of a dog or human, we will use Xception as a pre-train model and further train it with dog breed dataset
+
+### Metrics
+The most commonly and easily used metric for classification problem is accuracy.
+
+*Accuracy = Number of Correct Predictions / Total Number of Predictions*
+
+### EDA
+The dataset of dog images provided by Udacity includes:
+133 dog categories
+8351 dog images, where 6680 images for training, 835 images for validation, and 836 images for test (8:1:1)
+
+According to distribution of breeds in each subset below, train, valid, and test have similar percentage of each breed. That is to say, they have the similar **bias** for some breeds of dogs such as **Alaskan_malamut** and **Border_colli** (These two breeds of dogs have more images than the others).
+
+<img src='images/distribution.png' />
+
+### Modelling
+#### Transfer Learning ####
+We've used [Xception](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/DogXceptionData.npz) as pre-trained model that is available in Keras. Also, Udacity provides Xception with preprocess_input in [extract_bottleneck_features.py](https://github.com/Chris7911/dog-breeds-project/blob/main/extract_bottleneck_features.py). The only thing we have to do is to import it!
+
+#### Model Architecture ####
+As you can see the summary of model architecture below, pre-trained model Xception is followed by **GlobalAveragePooling2D** and **Dense**. **GlobalAveragePooling2D** has a smaller dense layer afterward rather than **Flatten**. With a tinier model, we might be able to avoid overfitting problems. Finally, using **Dense** layer fits the number of breeds, with **softmax** for help handle multiple classes.
+
+<img src='images/model_architecture.png' />
+
+### Hyperparameter tuning
+Firstly, we used 20 epochs and a batch size of 20 as the control group, and it got a 84.09% accuracy on test dataset. As we increased epochs from 20 to 30, the accuracy was nothing change so the checkpointer didn't update the best weights. For that reason, we went back to see the train loss go down but the valid loss go up. We assumed that overfitting occured between 20 and 30 epochs. Therefore, we apted to change the batch size from 20 to 32, and it got a better result with a 84.44% accuracy. Accordingly, we countinued increasing the batch size from 32 to 64, and the accuracy goes up to 85.88%. However, the accuracy stoped growing as we set a higher batch size. Therefore, another way should be applied if we want to find a better local minimum.
+
+### Results
+With the same hyperparameters, VGG16 got 69.85% accuracy and Xception got 84.09% accuracy on test set. Why? Compared to the fat VGG16 (528MB), Xception (88MB) is an extreme version of Inception as it simply replaces Inception modules with depthwise separable convolutions so its pre-trained model originally got a better accuracy (Top-1 Accuracy: 0.79, Top-5 Accuracy: 0.945) rather than VGG16 with accuracy (Top-1 Accuracy: 0.713, Top-5 Accuracy: 0.901) on ImageNet. So, with pre-trained model Xception, we got faster training process and better result!
+
+### Conclusion
+### Improvements
 
 ## Web-Application <a name="web_app"></a>
 
