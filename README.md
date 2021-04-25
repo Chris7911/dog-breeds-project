@@ -32,7 +32,7 @@ Deep learning helps me solve lots of problems in my work, but putting a deep lea
 ## Project Analysis <a name="analysis"></a>
 
 ### Problem Introduction
-This project is aimed to develop a dog breed classifier. When an user provides an image of a dog as an input, the classifier needs to predicit its breed as an output. Moreover, if there is a human in the photo, the classifier should be able to give the most similar appearance of breed for that person. Therefore, we can break the project down into three problems.
+This project is aimed to develop a dog breed classifier. When a user provides an image of a dog as an input, the classifier needs to predict its breed as an output. Moreover, if there is a human in the photo, the classifier should be able to give the most similar appearance of breed for that person. Therefore, we can break the project down into three problems.
 Our algorithm has the ability to ..
 1. Identify a human in an image and give it a breed
 2. Recognize a dog in an image and give it a breed
@@ -42,39 +42,48 @@ Our algorithm has the ability to ..
 With real-world problem solving, we can combine more than one model together to achieve our goal.
 1. To identify humans by using OpenCV's Cascade classifier to detect human faces in an image
 2. To recognize dogs by using pre-trained model ResNet-50 from Keras
-3. To predict a breed of a dog or human, we will use Xception as a pre-train model and further train it with dog breed dataset
+3. To predict a breed of a dog or human, we will use Xception as a pre-train model and further train it with a dog breed dataset
 
 ### Metrics
-The most commonly and easily used metric for classification problem is accuracy.
+The most commonly and easily used metric for classification problems is accuracy.
 
 *Accuracy = Number of Correct Predictions / Total Number of Predictions*
 
 ### EDA
 The dataset of dog images provided by Udacity includes:
 133 dog categories
-8351 dog images, where 6680 images for training, 835 images for validation, and 836 images for test (8:1:1)
+8351 dog images, where 6680 images for the training set, 835 images for the validation set, and 836 images for the test set (8:1:1)
 
-According to distribution of breeds in each subset below, train, valid, and test have similar percentage of each breed. That is to say, they have the similar **bias** for some breeds of dogs such as **Alaskan_malamut** and **Border_colli** (These two breeds of dogs have more images than the others).
+According to the distribution of breeds in each subset below, train, valid, and test have a similar percentage of each breed. That is to say, they have a similar **bias** for some breeds of dogs such as **Alaskan_malamut** and **Border_colli** (These two breeds of dogs have more images than the others).
 
 <img src='images/distribution.png' />
 
 ### Modelling
 #### Transfer Learning ####
-We've used [Xception](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/DogXceptionData.npz) as pre-trained model that is available in Keras. Also, Udacity provides Xception with preprocess_input in [extract_bottleneck_features.py](https://github.com/Chris7911/dog-breeds-project/blob/main/extract_bottleneck_features.py). The only thing we have to do is to import it!
+We've used [Xception](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/DogXceptionData.npz) as a pre-trained model that is available in Keras. Also, Udacity provides Xception with preprocess_input (normalization) in [extract_bottleneck_features.py](https://github.com/Chris7911/dog-breeds-project/blob/main/extract_bottleneck_features.py). The only thing we have to do is to import it!
 
 #### Model Architecture ####
-As you can see the summary of model architecture below, pre-trained model Xception is followed by **GlobalAveragePooling2D** and **Dense**. **GlobalAveragePooling2D** has a smaller dense layer afterward rather than **Flatten**. With a tinier model, we might be able to avoid overfitting problems. Finally, using **Dense** layer fits the number of breeds, with **softmax** for help handle multiple classes.
+As you can see in the summary of model architecture below, pre-trained model Xception is followed by **GlobalAveragePooling2D** and **Dense**. **GlobalAveragePooling2D** has a smaller dense layer afterward rather than **Flatten**. With a tinier model, we might be able to avoid overfitting problems. Finally, using **Dense** layer fits the number of breeds, with **softmax** to help handle multiple classes.
 
 <img src='images/model_architecture.png' />
 
 ### Hyperparameter tuning
-Firstly, we used 20 epochs and a batch size of 20 as the control group, and it got a 84.09% accuracy on test dataset. As we increased epochs from 20 to 30, the accuracy was nothing change so the checkpointer didn't update the best weights. For that reason, we went back to see the train loss go down but the valid loss go up. We assumed that overfitting occured between 20 and 30 epochs. Therefore, we apted to change the batch size from 20 to 32, and it got a better result with a 84.44% accuracy. Accordingly, we countinued increasing the batch size from 32 to 64, and the accuracy goes up to 85.88%. However, the accuracy stoped growing as we set a higher batch size. Therefore, another way should be applied if we want to find a better local minimum.
+Firstly, we used 20 epochs and a batch size of 20 as the control group, and it got an 84.09% accuracy on the test dataset. As we increased epochs from 20 to 30, the accuracy was nothing change so the checkpointer didn't update the best weights. For that reason, we went back to see the training loss go down but the valid loss go up. We assumed that overfitting occurred between 20 and 30 epochs. Therefore, we opted to change the batch size from 20 to 32, and it got a better result with an 84.44% accuracy. Accordingly, we continued increasing the batch size from 32 to 64, and the accuracy goes up to 85.88%. However, the accuracy stopped growing as we set a higher batch size. Therefore, another way should be applied if we want to find a better local minimum.
 
 ### Results
-With the same hyperparameters, VGG16 got 69.85% accuracy and Xception got 84.09% accuracy on test set. Why? Compared to the fat VGG16 (528MB), Xception (88MB) is an extreme version of Inception as it simply replaces Inception modules with depthwise separable convolutions so its pre-trained model originally got a better accuracy (Top-1 Accuracy: 0.79, Top-5 Accuracy: 0.945) rather than VGG16 with accuracy (Top-1 Accuracy: 0.713, Top-5 Accuracy: 0.901) on ImageNet. So, with pre-trained model Xception, we got faster training process and better result!
+With the same hyperparameters, VGG16 got a 69.85% accuracy and Xception got an 84.09% accuracy on the test set. Why? Compared to the fat VGG16 (528MB), Xception (88MB) is an extreme version of Inception as it simply replaces Inception modules with depthwise separable convolutions so its pre-trained model originally got a better accuracy (Top-1 Accuracy: 0.79, Top-5 Accuracy: 0.945) rather than VGG16 with accuracy (Top-1 Accuracy: 0.713, Top-5 Accuracy: 0.901) on ImageNet. So, with pre-trained model Xception, we got a faster training process and a better result!
 
 ### Conclusion
+The performance of my algorithm is better than my expectation. If the dog detector can recognize the creature in the photo as a dog, the dog breed classifier will be able to predict the breed of that dog accurately. However, some corner cases made my algorithm fail to give the right answer. For example, the dog detector cannot recognize the dog wearing red and controlling the steering wheel like a human. Also, the human detector predicts a humanoid robot as a human.
+
 ### Improvements
+1. Train a dog detector with dogs (mix all breeds together) in general, instead the one is based on its breeds to make a decision if it is a dog or not. Separately, we can use the general dog detector to figure out if the creature is a dog or not and further to recognize its breed by using dog breed classifier.
+
+2. In order to make the general dog detector more robust, we have to collect more images of dogs wearing clothes. No matter what breeds they are.
+
+3. Combine the dog detector with the human detector and add another class (humanoid robot) to it. So, classes of the brand new detector will be like 1.dog; 2.human(person); 3.humanoid robot, with decent confidence to avoid considering other creatures as the three classes we provide. Therefore, there are only two models in our new algorithm to meet the requirement of the project. The first model detects if there are dogs or humans in a photo, and then the second model recognizes their breeds.
+
+4. (Optional) Collect more data related to the three classes to generalize the models; Find a better model architecture; Spend more time to fine-tune hyperparameters; Use other metrics like precision or recall to judge our algorithm.
 
 ## Web-Application <a name="web_app"></a>
 
@@ -101,23 +110,8 @@ On the same page, you can see the result from the buttons below:
 
 <img src='images/prediction.png' />
 
-
-## Results <a name="results"></a>
-
-The performance of my algorithm is better than my expectation. If the dog detector can recognize the creature in the photo as a dog, dog breed classifier will be able to predict the breed of that dog accurately. However, some corner cases made my algorithm fail to give the right answer. For example, the dog detector cannot recognize the dog wearing red and controlling the steering wheel like a human. Also, the human detector predicts a humanoid robot as a human. In order to fix the corner cases above, there are some ideas to improve my algorithm:
-
-1. Train a dog detector with dogs (mix all breeds together) in general, instead the one is based on its breeds to make a decision if it is a dog or not. Separately, we can use the general dog detector to figure out if the creature is a dog or not and further to recognize its breed by using dog breed classifier.
-
-2. In order to make the general dog detector more robust, we have to collect more images of dogs wearing clothes. No matter what breeds they are.
-
-3. Combine the dog detector with the human detector and add another class (humanoid robot) to it. So, classes of the brand new detector will be like 1.dog; 2.human(person); 3.humanoid robot, with decent confidence to avoid considering other creatures as the three classes we provide. Therefore, there are only two models in our new algorithm to meet the requirement of the project. The first model detects if there are dogs or humans in a photo, and then the second model recognizes their breeds.
-
-4. (Optional) Collect more data related to the three classes to generalize the models; Find a better model architecture; Spend more time to fine-tune hyperparameters; Use other metrics like precision or recall to judge our algorithm.
-
-
 ## Licensing, Authors, Acknowledgements <a name="licensing"></a>
 
 Thanks to Data Scientist Nanodegree - Udacity and its templates to follow from **Dog Breed Workspace**
 
 Thanks to [Arif Ul Islam](https://arifulislam-ron.medium.com/flask-web-application-to-classify-image-using-vgg16-d9c46f29c4cd) and [StackOverflow](https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page/46794505) help me build up my web app.
-
