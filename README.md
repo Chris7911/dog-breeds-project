@@ -65,7 +65,7 @@ We've used [Xception](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-projec
 #### Model Architecture ####
 As you can see in the summary of model architecture below, pre-trained model Xception is followed by **GlobalAveragePooling2D** and **Dense**. **GlobalAveragePooling2D** has a smaller dense layer afterward rather than **Flatten**. With a tinier model, we might be able to avoid overfitting problems. Finally, using **Dense** layer fits the number of breeds, with **softmax** to help handle multiple classes.
 
-<img src='images/model_architecture.png' />
+<img src='images/model_architecture.PNG' />
 
 ### Hyperparameter tuning
 Firstly, we used 20 epochs and a batch size of 20 as the control group, and it got an 84.09% accuracy on the test dataset. As we increased epochs from 20 to 30, the accuracy was nothing change so the checkpointer didn't update the best weights. For that reason, we went back to see the training loss go down but the valid loss go up. We assumed that overfitting occurred between 20 and 30 epochs. Therefore, we opted to change the batch size from 20 to 32, and it got a better result with an 84.44% accuracy. Accordingly, we continued increasing the batch size from 32 to 64, and the accuracy goes up to 85.88%. However, the accuracy stopped growing as we set a higher batch size. Therefore, another way should be applied if we want to find a better local minimum.
